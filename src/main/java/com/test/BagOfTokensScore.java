@@ -1,7 +1,7 @@
 package com.test;
 
 public class BagOfTokensScore {
-    private static void quickSort(int[] A, int left, int right){
+    private  void quickSort(int[] A, int left, int right){
         if(left >= right){
             return;
         }
@@ -40,70 +40,57 @@ public class BagOfTokensScore {
             }
         }
 
-        quickSort(A,left,li);
+        quickSort(A,left,li-1);
         quickSort(A,li+1,right);
     }
 
-    public static int bagOfTokensScore(int[] tokens, int P) {
+    public  int bagOfTokensScore(int[] tokens, int P) {
+        if(tokens.length == 0)
+            return 0;
+
         quickSort(tokens,0,tokens.length-1);
 
-        int sum = 0;
+        if(tokens[0] > P)
+            return 0;
 
-        for(int i = 0; i< tokens.length; i++){
-            sum += tokens[i];
-        }
+        int score = 0;
 
-        int[] scores = new int[sum];
+        int i = 0;
+        int j = tokens.length;
 
-        scores[0] = 0;
-        int lastInd = 0;
-        int ptoken = 0;
-
-        for(int i = 1; i < sum; i++){
-            if( i <= ptoken){
-                scores[i] = scores[i-1];
-            }
-            else {
-                if(lastInd == tokens.length)
-                    break;
-
-                ptoken += tokens[lastInd];
-                scores[i] = scores[i-1] + 1;
-                lastInd++;
-            }
-        }
-
-        int[] ptokes = new int[tokens.length];
-
-        for(int i = 0; i < tokens.length; i++){
-            int t1 = 0;
-            int t2 = 0;
-
-            if(tokens[i] <= P){
-                if(i == 0){
-                    t1 = 1;
+        while(true){
+            if(score <= 0){
+                if(i < j && tokens[i] <= P){
+                    score++;
+                    P -= tokens[i];
+                    i++;
                 }
-                else{
-                    t1 += ptokes[i-1] + 1;
-                }
-
+            }
+            else if(i < j && tokens[i] <= P){
+                score++;
                 P -= tokens[i];
+                i++;
             }
             else{
-                if(i == 0){
-                    t1 = 0;
+                if(j - 1 > i){
+                    score--;
+                    P += tokens[--j];
                 }
                 else{
-                    t1 += ptokes[i-1] + 1;
+                    break;
                 }
             }
-
         }
 
-        return 0;
+        return score;
     }
 
     public static void main(String[] args) {
+       int[] tokens = {26};
+       int P = 51;
+        BagOfTokensScore bagOfTokensScore = new BagOfTokensScore();
+
+        System.out.println(bagOfTokensScore.bagOfTokensScore(tokens,P));
 
     }
 }
