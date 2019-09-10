@@ -29,4 +29,47 @@ public class ToolUtils {
 
         return root;
     }
+
+    public static void quickSort(int[] A, int left, int right){
+        if(left >= right){
+            return;
+        }
+        int li = left;
+        int ri = right;
+        int m = A[li];
+
+        while(true){
+            while(ri > li){
+                if(A[ri] >= A[li]){
+                    ri--;
+                }
+                else{
+                    int n = A[li];
+                    A[li] = A[ri];
+                    A[ri] = n;
+                    break;
+                }
+            }
+
+            while(li < ri){
+                if(A[li] <= A[ri]){
+                    li++;
+                }
+                else{
+                    int n = A[li];
+                    A[li] = A[ri];
+                    A[ri] = n;
+                    break;
+                }
+            }
+
+            if(li == ri){
+                A[li] = m;
+                break;
+            }
+        }
+
+        quickSort(A,left,li);
+        quickSort(A,li+1,right);
+    }
 }

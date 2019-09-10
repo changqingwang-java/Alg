@@ -144,7 +144,7 @@ public class CanReorderDoubled {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{2,1,2,1,1,1,2,2};
+        int[] arr = new int[]{10,10,10,7,7,7,7,7,7,6,6,6};
 
         CanReorderDoubled canReorderDoubled = new CanReorderDoubled();
 
