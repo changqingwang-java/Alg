@@ -26,45 +26,8 @@ public class CanPartitionKSubsets {
 
         int rows = nums.length;
 
-        int seg = sum / k;
+        for(int seg = 2; seg <= k; seg++){
 
-        int[][] table = new int[rows+1][seg+1];
-
-        for(int j = 1; j <= seg; j++){
-            for(int i = 0; i < rows; i++){
-                int num = nums[i];
-
-                if(num == j){
-                    table[i+1][j]++;
-                }
-                else if(num < j){
-                    Set<Integer> set = new HashSet<Integer>();
-                    set.add(i+1);
-
-                    int left = j - num;
-
-                    int max = 0;
-
-                    for(int m = 0; m < i; m++){
-                       if(max < table[m+1][left] && !set.contains(m+1)){
-                           max = table[m+1][left];
-                           set.add(m+1);
-                       }
-                    }
-
-                   if(max > 0){
-                       table[i+1][j] = Math.max(max,table[i+1][j]);
-                   }
-                }
-            }
-        }
-
-        for(int i = 0; i < table.length; i++){
-           for(int j = 0; j < table[0].length; j++){
-               System.out.print(table[i][j] + " ");
-           }
-
-            System.out.println("");
         }
 
         return false;
